@@ -41,7 +41,7 @@ S = Steel Ingot   C = Copper Ingot   F = Furnace
 |S||S||S|  
 (reverse works aswell)  
 
-*	Waffle Maker Alternate (if Homedecor is present)
+*	Waffle Maker Alternate (if Homedecor is present)	
 PS = Plastic Sheet   PC = Power Crystal   C = Copper Strip   H = Heating Element  
 |PS||PS||PS|  
 |PC|  
