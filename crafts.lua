@@ -24,7 +24,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'waffles:waffle_batter',
 	recipe = {
-		{'default:steel_ingot'},
+		{'farming:flour'},
 		{'farming:flour'},
 		{'bucket:bucket_water'},
 	}
