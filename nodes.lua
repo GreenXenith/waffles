@@ -168,7 +168,7 @@ minetest.register_tool("waffles:waffle_batter", {
 		if node.name == "waffles:wafflemaker_open_empty" then
 
 			minetest.set_node(pos, {name = "waffles:wafflemaker_open_full", param2 = node.param2})
-			itemstack:add_wear(21845)
+			itemstack:add_wear(21900)
 			return itemstack
 		end
 
