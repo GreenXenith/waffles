@@ -49,8 +49,8 @@ PS = Plastic Sheet   PC = Power Crystal   C = Copper Strip   H = Heating Element
 (reverse works aswell)  
 
 *	Waffle Batter  
-S = Steel Ingot   F = Flour   B = Bucket with Water  
-|S|  
+F = Flour   B = Bucket with Water  
+|F|  
 |F|  
 |B|  
 (can go anywhere in grid as long as they are above each other and in that   order)  
