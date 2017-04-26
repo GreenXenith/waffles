@@ -38,6 +38,33 @@ minetest.register_craft({
 	}
 })
 
+
+--Slice of Bread
+minetest.register_craft({
+	output = 'waffles:breadslice 2',
+	type = "shapeless",
+	recipe = {"farming:bread"}
+})
+
+--Package of Toaster Waffles
+minetest.register_craft({
+	output = 'waffles:toaster_waffle_pack',
+	recipe = {
+		{'', 'default:paper', ''},
+		{'default:paper', 'waffles:waffle_batter', 'default:paper'},
+		{'', 'default:paper', ''},
+	}
+})
+
+--Toaster
+minetest.register_craft({
+	output = 'waffles:toaster',
+	recipe = {
+		{'default:steel_ingot', 'default:copper_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'bucket:bucket_lava', 'default:steel_ingot'},
+	}
+})
+
 --Alternate Recipes if Homedecor is Enabled
 if minetest.get_modpath("homedecor") then
 
@@ -60,6 +87,14 @@ minetest.register_craft({
 	}
 })	
 
+minetest.register_craft({
+	output = 'waffles:toaster 0',
+	recipe = {
+		{'default:steel_ingot', 'default:copper_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'bucket:bucket_lava', 'default:steel_ingot'},
+	}
+})
+
 --Add New Recipes
 minetest.register_craft({
 	output = 'waffles:wafflemaker',
@@ -77,5 +112,5 @@ minetest.register_craft({
 		{'homedecor:power_crystal', '', ''},
 		{'homedecor:copper_strip', 'homedecor:heating_element', 'homedecor:plastic_sheeting'},
 	}
-})	
+})
 end
