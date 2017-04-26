@@ -44,10 +44,11 @@ can then turn into 4 smaller waffles.
 *	If homedecor is enabled, this mod will not register a toaster. Use the  
 	homedecor toaster
 *	The wafflemaker produces a *large* waffle, which gives you 8 hp  
-	(4 hearts) when eaten
+	(four hearts) when eaten
 *	The large waffle can be placed in your crafting grid to produce  
 	4 *smaller* waffles
 *	Each small waffle gives you 2 hp (one heart)
+*	Each toaster waffle gives you 4 hp (two hearts)
 
 **Crafting:**
 
@@ -79,7 +80,7 @@ F = Flour   B = Bucket with Water
 (can go anywhere in grid as long as they are above each other and in that order)  
 
 *	Package of Toaster Waffles  
-P = Paper   B = Waffle Batter
+P = Paper   B = Waffle Batter   
 |  ||P||  |  
 |P||B||P|  
 |  ||p||  |   
