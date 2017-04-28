@@ -254,9 +254,11 @@ minetest.register_craftitem("waffles:breadslice", {
 
 		if node.name == "homedecor:toaster"
 		or node.name == "waffles:toaster" then
-			itemstack:take_item(2)
-			minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
+			if itemstack:get_count() > 2 then
+				itemstack:take_item(2)
+				minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
 			return itemstack
+			end
 		end
 	end,
 })
