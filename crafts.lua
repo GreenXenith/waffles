@@ -1,25 +1,64 @@
 --+--Crafting Recipes--+--
 
---Waffle Maker
-minetest.register_craft({
-	output = 'waffles:wafflemaker',
-	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'', 'default:furnace', 'default:copper_ingot'},
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-	}
-})
+--Check for Homedecor before craft recipe is defined
+if minetest.get_modpath("homedecor") then
 
---Reverse Recipe for Waffle Maker
-minetest.register_craft({
-	output = 'waffles:wafflemaker',
-	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'default:copper_ingot', 'default:furnace', ''},
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-	}
-})
+	--Use alternate recipe if Homedecor is enabled
+	--Waffle Maker (with Homedecor enabled)
+	minetest.register_craft({
+		output = 'waffles:wafflemaker',
+		recipe = {
+			{'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting'},
+			{'', '', 'homedecor:power_crystal'},
+			{'homedecor:plastic_sheeting', 'homedecor:heating_element', 'homedecor:copper_strip'},
+		}
+	})
+	
+	--Reverse Recipe for Waffle Maker (with Homedecor enabled)
+	minetest.register_craft({
+		output = 'waffles:wafflemaker',
+		recipe = {
+			{'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting'},
+			{'homedecor:power_crystal', '', ''},
+			{'homedecor:copper_strip', 'homedecor:heating_element', 'homedecor:plastic_sheeting'},
+		}
+	})
+	
+else
 
+	--When Homedecor is not enabled, use these recipes
+	--Waffle Maker
+	minetest.register_craft({
+		output = 'waffles:wafflemaker',
+		recipe = {
+			{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+			{'', 'default:furnace', 'default:copper_ingot'},
+			{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		}
+	})
+	
+	--Reverse Recipe for Waffle Maker
+	minetest.register_craft({
+		output = 'waffles:wafflemaker',
+		recipe = {
+			{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+			{'default:copper_ingot', 'default:furnace', ''},
+			{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		}
+	})
+	
+	--Toaster (Only Available if Homedecor is Not Enabled, Uses Homedecor Toaster Craft Instead if Homedecor is Enabled)
+	minetest.register_craft({
+		output = 'waffles:toaster',
+		recipe = {
+			{'default:steel_ingot', 'default:copper_ingot', 'default:steel_ingot'},
+			{'default:steel_ingot', 'bucket:bucket_lava', 'default:steel_ingot'},
+		}
+	})
+	
+end
+
+--Recipes that should appear regardless Homedecor is installed or not goes here
 --Waffle Batter
 minetest.register_craft({
 	output = 'waffles:waffle_batter',
@@ -38,7 +77,6 @@ minetest.register_craft({
 	}
 })
 
-
 --Slice of Bread
 minetest.register_craft({
 	output = 'waffles:breadslice 2',
@@ -55,62 +93,3 @@ minetest.register_craft({
 		{'', 'default:paper', ''},
 	}
 })
-
---Toaster
-minetest.register_craft({
-	output = 'waffles:toaster',
-	recipe = {
-		{'default:steel_ingot', 'default:copper_ingot', 'default:steel_ingot'},
-		{'default:steel_ingot', 'bucket:bucket_lava', 'default:steel_ingot'},
-	}
-})
-
---Alternate Recipes if Homedecor is Enabled
-if minetest.get_modpath("homedecor") then
-
---Remove Original Recipes
-minetest.register_craft({
-	output = 'waffles:wafflemaker 0',
-	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'', 'default:furnace', 'default:copper_ingot'},
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-	}
-})
-
-minetest.register_craft({
-	output = 'waffles:wafflemaker 0',
-	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'default:copper_ingot', 'default:furnace', ''},
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-	}
-})	
-
-minetest.register_craft({
-	output = 'waffles:toaster 0',
-	recipe = {
-		{'default:steel_ingot', 'default:copper_ingot', 'default:steel_ingot'},
-		{'default:steel_ingot', 'bucket:bucket_lava', 'default:steel_ingot'},
-	}
-})
-
---Add New Recipes
-minetest.register_craft({
-	output = 'waffles:wafflemaker',
-	recipe = {
-		{'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting'},
-		{'', '', 'homedecor:power_crystal'},
-		{'homedecor:plastic_sheeting', 'homedecor:heating_element', 'homedecor:copper_strip'},
-	}
-})
-
-minetest.register_craft({
-	output = 'waffles:wafflemaker',
-	recipe = {
-		{'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting', 'homedecor:plastic_sheeting'},
-		{'homedecor:power_crystal', '', ''},
-		{'homedecor:copper_strip', 'homedecor:heating_element', 'homedecor:plastic_sheeting'},
-	}
-})
-end
