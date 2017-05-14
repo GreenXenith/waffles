@@ -1,6 +1,6 @@
 --Batter registered here because of many lines
 minetest.register_tool("waffles:waffle_batter", {
-	description = "Waffle Batter",
+	description = S("Waffle Batter"),
 	inventory_image = "waffle_batter.png",
 	wield_image = "waffle_batter.png",
 	stack_max = 1,
@@ -30,7 +30,7 @@ minetest.register_tool("waffles:waffle_batter", {
 })
 
 minetest.register_tool("waffles:waffle_batter_two_thirds", {
-	description = "Waffle Batter",
+	description = S("Waffle Batter"),
 	inventory_image = "waffle_batter_two_thirds.png",
 	wield_image = "waffle_batter_two_thirds.png",
 	stack_max = 1,
@@ -69,7 +69,7 @@ local function remove_empty_can(player)
 end
 
 minetest.register_tool("waffles:waffle_batter_one_third", {
-	description = "Waffle Batter",
+	description = S("Waffle Batter"),
 	inventory_image = "waffle_batter_one_third.png",
 	wield_image = "waffle_batter_one_third.png",
 	stack_max = 1,
