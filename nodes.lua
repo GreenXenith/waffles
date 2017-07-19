@@ -236,10 +236,15 @@ minetest.register_craftitem("waffles:breadslice", {
     inventory_image = "breadslice.png",
     groups = {flammable = 2},
     on_use = function(itemstack, user, pointed_thing)
-        local pos = pointed_thing.under
+        local node, pos
+        if pointed_thing.under then
+            pos = pointed_thing.under
+            node = minetest.get_node(pos)
+        end
+
         local pname = user:get_player_name()
-        local node = minetest.get_node(pos)
-        if node.name == "homedecor:toaster" or node.name == "waffles:toaster" then
+        if node and pos and (node.name == "homedecor:toaster" or
+                node.name == "waffles:toaster") then
             if minetest.is_protected(pos, pname) then
                 minetest.record_protection_violation(pos, pname)
             else
