@@ -232,35 +232,27 @@ minetest.register_craftitem(":farming:bread", {
 })
 
 minetest.register_craftitem("waffles:breadslice", {
-	description = "Slice of Bread",
-	inventory_image = "breadslice.png",
-	groups = {flammable = 2},
-	on_use = function(itemstack, user, pointed_thing)
-
-		if pointed_thing.type ~= "node" then
-			minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
-			return
-		end
-
-		local pos = pointed_thing.under
-		local pname = user:get_player_name()
-
-		if minetest.is_protected(pos, pname) then
-			minetest.record_protection_violation(pos, pname)
-			return
-		end
-
-		local node = minetest.get_node(pos)
-
-		if node.name == "homedecor:toaster"
-		or node.name == "waffles:toaster" then
-			if itemstack:get_count() >= 2 then
-				itemstack:take_item(2)
-				minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
-			return itemstack
-			end
-		end
-	end,
+    description = "Slice of Bread",
+    inventory_image = "breadslice.png",
+    groups = {flammable = 2},
+    on_use = function(itemstack, user, pointed_thing)
+        local pos = pointed_thing.under
+        local pname = user:get_player_name()
+        local node = minetest.get_node(pos)
+        if node.name == "homedecor:toaster" or node.name == "waffles:toaster" then
+            if minetest.is_protected(pos, pname) then
+                minetest.record_protection_violation(pos, pname)
+            else
+                if itemstack:get_count() >= 2 then
+                    itemstack:take_item(2)
+                    minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
+                    return itemstack
+                end
+            end
+        else
+            return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
+        end
+    end,
 })
 
 minetest.register_craftitem("waffles:toast", {
