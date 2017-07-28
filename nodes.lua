@@ -239,28 +239,28 @@ minetest.register_craftitem("waffles:breadslice", {
 	groups = {flammable = 2},
 	on_use = function(itemstack, user, pointed_thing)
 
-        local node, pos
-        if pointed_thing.under then
-            pos = pointed_thing.under
-            node = minetest.get_node(pos)
+		local node, pos
+		if pointed_thing.under then
+			pos = pointed_thing.under
+			node = minetest.get_node(pos)
 		end
 
 		local pname = user:get_player_name()
 
-        if node and pos and (node.name == "homedecor:toaster" or
-                node.name == "waffles:toaster") then
+		if node and pos and (node.name == "homedecor:toaster" or
+				node.name == "waffles:toaster") then
 		if minetest.is_protected(pos, pname) then
 			minetest.record_protection_violation(pos, pname)
-            else
+			else
 			if itemstack:get_count() >= 2 then
 				itemstack:take_item(2)
 				minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
 			return itemstack
 			end
 		end
-        else
-            return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
-        end
+		else
+			return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
+		end
 	end,
 })
 
@@ -403,7 +403,7 @@ minetest.register_craftitem("waffles:toaster_waffle_pack", {
 minetest.register_craftitem("waffles:toaster_waffle_pack_4", {
 	description = S("Pack of 4 Toaster Waffles"),
 	inventory_image = "toaster_waffle_pack_4.png",
-        groups = {not_in_creative_inventory=1},
+		groups = {not_in_creative_inventory=1},
 	on_use = function(itemstack, user, pointed_thing)
 
 		if pointed_thing.type ~= "node" then
@@ -431,7 +431,7 @@ minetest.register_craftitem("waffles:toaster_waffle_pack_4", {
 minetest.register_craftitem("waffles:toaster_waffle_pack_2", {
 	description = S("Pack of 2 Toaster Waffles"),
 	inventory_image = "toaster_waffle_pack_2.png",
-        groups = {not_in_creative_inventory=1},
+		groups = {not_in_creative_inventory=1},
 	on_use = function(itemstack, user, pointed_thing)
 
 		if pointed_thing.type ~= "node" then
