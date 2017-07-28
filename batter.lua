@@ -18,7 +18,7 @@ function batter.register(filled, original_def)
 		group = 1
 	end
 	minetest.register_tool("waffles:waffle_batter_"..filled, {
-		description = "Waffle Batter",
+		description = S("Waffle Batter"),
 		inventory_image = "waffle_batter_"..filled..".png",
 		wield_image = "waffle_batter_"..filled..".png",
 		stack_max = 1,
