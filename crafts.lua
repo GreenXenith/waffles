@@ -89,7 +89,7 @@ minetest.register_craft({
 	output = 'waffles:toaster_waffle_pack',
 	recipe = {
 		{'', 'default:paper', ''},
-		{'default:paper', 'waffles:waffle_batter', 'default:paper'},
+		{'default:paper', 'waffles:waffle_batter_1', 'default:paper'},
 		{'', 'default:paper', ''},
 	}
 })
