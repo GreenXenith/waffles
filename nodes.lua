@@ -1,3 +1,5 @@
+local S = waffles.intllib
+
 --Waffle Maker and Waffles--
 local function get_waffle(player)
 	local inv = player:get_inventory()
@@ -8,7 +10,7 @@ local function replace_emptymaker(pos, node)
 end
 
 minetest.register_node("waffles:wafflemaker", {
-	description = "Waffle Maker",
+	description = S("Waffle Maker"),
 	drawtype = "mesh",
 	mesh = "wafflemaker.obj",
 	tiles = {"wafflemaker_texture.png"},
@@ -31,7 +33,7 @@ minetest.register_node("waffles:wafflemaker", {
 })
 
 minetest.register_node("waffles:wafflemaker_open_empty", {
-	description = "Open Waffle Maker (empty)",
+	description = S("Open Waffle Maker (empty)"),
 	drawtype = "mesh",
 	mesh = "wafflemaker_open_empty.obj",
 	tiles = {"wafflemaker_open_empty_texture.png"},
@@ -61,7 +63,7 @@ minetest.register_node("waffles:wafflemaker_open_empty", {
 })
 
 minetest.register_node("waffles:wafflemaker_open_full", {
-	description = "Open Waffle Maker (full)",
+	description = S("Open Waffle Maker (full)"),
 	drawtype = "mesh",
 	mesh = "wafflemaker_open_full.obj",
 	tiles = {"wafflemaker_open_full_texture.png"},
@@ -95,7 +97,7 @@ local function replace_donemodel(pos, node)
 end
 
 minetest.register_node("waffles:wafflemaker_closed_full", {
-	description = "Closed Waffle Maker (full)",
+	description = S("Closed Waffle Maker (full)"),
 	drawtype = "mesh",
 	mesh = "wafflemaker_closed_full.obj",
 	tiles = {"wafflemaker_texture.png"},
@@ -116,7 +118,7 @@ minetest.register_node("waffles:wafflemaker_closed_full", {
 })
 
 minetest.register_node("waffles:wafflemaker_open_done", {
-	description = "Open Waffle Maker (done)",
+	description = S("Open Waffle Maker (done)"),
 	drawtype = "mesh",
 	mesh = "wafflemaker_open_done.obj",
 	tiles = {"wafflemaker_open_done_texture.png"},
@@ -148,13 +150,13 @@ minetest.register_node("waffles:wafflemaker_open_done", {
 --Batter is stored in batter.lua for size reasons
 
 minetest.register_craftitem("waffles:large_waffle", {
-	description = "Large Waffle",
+	description = S("Large Waffle"),
 	inventory_image = "large_waffle.png",
 	on_use = minetest.item_eat(8),
 })
 
 minetest.register_craftitem("waffles:small_waffle", {
-	description = "Small Waffle",
+	description = S("Small Waffle"),
 	inventory_image = "small_waffle.png",
 	on_use = minetest.item_eat(2),
 })
@@ -170,7 +172,7 @@ function replace_emptytoaster(pos, node)
 end
 
 minetest.register_node(":homedecor:toaster", {
-	description = "Toaster",
+	description = S("Toaster"),
 	tiles = { "toaster_with_toast_sides.png" },
 	inventory_image = "waffles_toaster_inv.png",
 	walkable = false,
@@ -197,7 +199,7 @@ function replace_emptytoaster(pos, node)
 end
 
 minetest.register_node("waffles:toaster", {
-	description = "Toaster",
+	description = S("Toaster"),
 	tiles = { "toaster_with_toast_sides.png" },
 	inventory_image = "waffles_toaster_inv.png",
 	walkable = false,
@@ -225,50 +227,52 @@ local function get_toast(player)
 end
 
 minetest.register_craftitem(":farming:bread", {
-	description = "Bread",
+	description = S("Bread"),
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
 	groups = {flammable = 2},
 })
 
 minetest.register_craftitem("waffles:breadslice", {
-    description = "Slice of Bread",
-    inventory_image = "breadslice.png",
-    groups = {flammable = 2},
-    on_use = function(itemstack, user, pointed_thing)
-        local node, pos
-        if pointed_thing.under then
-            pos = pointed_thing.under
-            node = minetest.get_node(pos)
-        end
+	description = S("Slice of Bread"),
+	inventory_image = "breadslice.png",
+	groups = {flammable = 2},
+	on_use = function(itemstack, user, pointed_thing)
 
-        local pname = user:get_player_name()
-        if node and pos and (node.name == "homedecor:toaster" or
-                node.name == "waffles:toaster") then
-            if minetest.is_protected(pos, pname) then
-                minetest.record_protection_violation(pos, pname)
-            else
-                if itemstack:get_count() >= 2 then
-                    itemstack:take_item(2)
-                    minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
-                    return itemstack
-                end
-            end
-        else
-            return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
-        end
-    end,
+		local node, pos
+		if pointed_thing.under then
+			pos = pointed_thing.under
+			node = minetest.get_node(pos)
+		end
+
+		local pname = user:get_player_name()
+
+		if node and pos and (node.name == "homedecor:toaster" or
+				node.name == "waffles:toaster") then
+			if minetest.is_protected(pos, pname) then
+				minetest.record_protection_violation(pos, pname)
+				else
+					if itemstack:get_count() >= 2 then
+						itemstack:take_item(2)
+						minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
+					return itemstack
+				end
+			end
+		else
+			return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
+		end
+	end,
 })
 
 minetest.register_craftitem("waffles:toast", {
-	description = "Toast",
+	description = S("Toast"),
 	inventory_image = "toast.png",
 	on_use = minetest.item_eat(3),
 	groups = {flammable = 2},
 })
-	
+
 minetest.register_node("waffles:toaster_with_breadslice", {
-	description = "Toaster with Breadslice",
+	description = S("Toaster with Breadslice"),
 	inventory_image = "waffles_toaster_inv.png",
 	tiles = {
 		"toaster_with_bread_top.png",
@@ -307,7 +311,7 @@ minetest.register_node("waffles:toaster_with_breadslice", {
 })
 
 minetest.register_node("waffles:toaster_toasting_breadslice", {
-	description = "Toaster Toasting Slice of Bread",
+	description = S("Toaster Toasting Slice of Bread"),
 	tiles = { "toaster_with_toast_toasting_sides.png" },
 	inventory_image = "waffles_toaster_inv.png",
 	walkable = false,
@@ -326,7 +330,7 @@ minetest.register_node("waffles:toaster_toasting_breadslice", {
 })
 
 minetest.register_node("waffles:toaster_with_toast", {
-	description = "Toaster with Toast",
+	description = S("Toaster with Toast"),
 	inventory_image = "waffles_toaster_inv.png",
 	tiles = {
 		"toaster_with_toast_top.png",
@@ -364,13 +368,13 @@ local function get_toaster_waffle(player)
 end
 
 minetest.register_craftitem("waffles:toaster_waffle", {
-	description = "Toaster Waffle",
+	description = S("Toaster Waffle"),
 	inventory_image = "toaster_waffle.png",
 	on_use = minetest.item_eat(4),
 })
 
 minetest.register_craftitem("waffles:toaster_waffle_pack", {
-	description = "Pack of 6 Toaster Waffles",
+	description = S("Pack of 6 Toaster Waffles"),
 	inventory_image = "toaster_waffle_pack_6.png",
 	on_use = function(itemstack, user, pointed_thing)
 
@@ -397,7 +401,7 @@ minetest.register_craftitem("waffles:toaster_waffle_pack", {
 })
 
 minetest.register_craftitem("waffles:toaster_waffle_pack_4", {
-	description = "Pack of 4 Toaster Waffles",
+	description = S("Pack of 4 Toaster Waffles"),
 	inventory_image = "toaster_waffle_pack_4.png",
 	groups = {not_in_creative_inventory = 1},
 	on_use = function(itemstack, user, pointed_thing)
@@ -425,7 +429,7 @@ minetest.register_craftitem("waffles:toaster_waffle_pack_4", {
 })
 
 minetest.register_craftitem("waffles:toaster_waffle_pack_2", {
-	description = "Pack of 2 Toaster Waffles",
+	description = S("Pack of 2 Toaster Waffles"),
 	inventory_image = "toaster_waffle_pack_2.png",
 	groups = {not_in_creative_inventory = 1},
 	on_use = function(itemstack, user, pointed_thing)
@@ -454,7 +458,7 @@ minetest.register_craftitem("waffles:toaster_waffle_pack_2", {
 })
 
 minetest.register_node("waffles:toaster_with_waffle", {
-	description = "Toaster with Waffle",
+	description = S("Toaster with Waffle"),
 	inventory_image = "waffles_toaster_inv.png",
 	tiles = {
 		"toaster_with_waffle_top.png",
@@ -493,7 +497,7 @@ minetest.register_node("waffles:toaster_with_waffle", {
 })
 
 minetest.register_node("waffles:toaster_toasting_waffle", {
-	description = "Toaster Toasting Waffle",
+	description = S("Toaster Toasting Waffle"),
 	tiles = { "toaster_with_waffle_toasting_sides.png" },
 	inventory_image = "waffles_toaster_inv.png",
 	walkable = false,
@@ -512,7 +516,7 @@ minetest.register_node("waffles:toaster_toasting_waffle", {
 })
 
 minetest.register_node("waffles:toaster_with_toasted_waffle", {
-	description = "Toaster with Toasted Waffle",
+	description = S("Toaster with Toasted Waffle"),
 	inventory_image = "waffles_toaster_inv.png",
 	tiles = {
 		"toaster_with_waffle_toasted_top.png",
