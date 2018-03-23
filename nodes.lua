@@ -176,12 +176,6 @@ if minetest.get_modpath("homedecor") then
 	minetest.register_alias("homedecor:toaster", "waffles:toaster")
 end
 
-local function get_toast(player)
-	local inv = player:get_inventory()
-	inv:add_item("main", "waffles:toast 2")
-	return inv:get_stack("main", player:get_wield_index())
-end
-
 minetest.register_craftitem(":farming:bread", {
 	description = S("Bread"),
 	inventory_image = "farming_bread.png",
@@ -311,18 +305,15 @@ minetest.register_node("waffles:toaster_with_toast", {
 		},
 	},
 	on_punch = function (pos, node, player, pointed_thing)
-		get_toast(player)
-		minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
+		local inv = player:get_inventory()
+		local left = inv:add_item("main", "waffles:toast 2")
+		if left:is_empty() then
+			minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
+		end
 	end
 })
 
 --Toaster Waffles--
-local function get_toaster_waffle(player)
-	local inv = player:get_inventory()
-	inv:add_item("main", "waffles:toaster_waffle 2")
-	return inv:get_stack("main", player:get_wield_index())
-end
-
 minetest.register_craftitem("waffles:toaster_waffle", {
 	description = S("Toaster Waffle"),
 	inventory_image = "toaster_waffle.png",
@@ -497,7 +488,10 @@ minetest.register_node("waffles:toaster_with_toasted_waffle", {
 		},
 	},
 	on_punch = function (pos, node, player, pointed_thing)
-		get_toaster_waffle(player)
-		minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
+		local inv = player:get_inventory()
+		local left = inv:add_item("main", "waffles:toaster_waffle 2")
+		if left:is_empty() then
+			minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
+		end
 	end
 })
