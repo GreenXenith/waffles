@@ -152,42 +152,6 @@ minetest.register_craftitem("waffles:small_waffle", {
 
 
 --Toaster and Toast--
-
---Use homedecor toaster if detected--
-local replace_emptytoaster
-if minetest.get_modpath("homedecor") then
-
-function replace_emptytoaster(pos, node)
-	minetest.set_node(pos, {name = "homedecor:toaster", param2 = node.param2})
-end
-
-minetest.register_node(":homedecor:toaster", {
-	description = S("Toaster"),
-	tiles = { "toaster_with_toast_sides.png" },
-	inventory_image = "waffles_toaster_inv.png",
-	walkable = false,
-	groups = { snappy=3 },
-	paramtype = "light",
-	paramtype2 = "facedir",
-	is_ground_content = false,
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.0625, -0.5, -0.125, 0.125, -0.3125, 0.125}, -- NodeBox1
-		},
-	},
-})
-
-minetest.register_alias("waffles:toaster", "homedecor:toaster")
-
-else
-
---This mod registers it's own toaster--
-function replace_emptytoaster(pos, node)
-	minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
-end
-
 minetest.register_node("waffles:toaster", {
 	description = S("Toaster"),
 	tiles = { "toaster_with_toast_sides.png" },
@@ -206,8 +170,10 @@ minetest.register_node("waffles:toaster", {
 	},
 })
 
-minetest.register_alias("homedecor:toaster", "waffles:toaster")
-
+--Replace homedecor toaster by waffles toaster if detected
+if minetest.get_modpath("homedecor") then
+	minetest.unregister_item("homedecor:toaster")
+	minetest.register_alias("homedecor:toaster", "waffles:toaster")
 end
 
 local function get_toast(player)
@@ -346,7 +312,7 @@ minetest.register_node("waffles:toaster_with_toast", {
 	},
 	on_punch = function (pos, node, player, pointed_thing)
 		get_toast(player)
-		replace_emptytoaster(pos, node)
+		minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
 	end
 })
 
@@ -532,6 +498,6 @@ minetest.register_node("waffles:toaster_with_toasted_waffle", {
 	},
 	on_punch = function (pos, node, player, pointed_thing)
 		get_toaster_waffle(player)
-		replace_emptytoaster(pos, node)
+		minetest.set_node(pos, {name = "waffles:toaster", param2 = node.param2})
 	end
 })
