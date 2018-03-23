@@ -183,43 +183,53 @@ minetest.register_craftitem(":farming:bread", {
 	groups = {flammable = 2},
 })
 
-minetest.register_craftitem("waffles:breadslice", {
-	description = S("Slice of Bread"),
-	inventory_image = "breadslice.png",
-	groups = {flammable = 2},
-	on_use = function(itemstack, user, pointed_thing)
+local function breadslice_on_use(itemstack, user, pointed_thing)
+	local node, pos
+	if pointed_thing.under then
+		pos = pointed_thing.under
+		node = minetest.get_node(pos)
+	end
 
-		local node, pos
-		if pointed_thing.under then
-			pos = pointed_thing.under
-			node = minetest.get_node(pos)
-		end
+	local pname = user:get_player_name()
 
-		local pname = user:get_player_name()
-
-		if node and pos and (node.name == "homedecor:toaster" or
-				node.name == "waffles:toaster") then
-			if minetest.is_protected(pos, pname) then
-				minetest.record_protection_violation(pos, pname)
-				else
-					if itemstack:get_count() >= 2 then
-						itemstack:take_item(2)
-						minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
-					return itemstack
-				end
+	if node and pos and (node.name == "homedecor:toaster" or
+			node.name == "waffles:toaster") then
+		if minetest.is_protected(pos, pname) then
+			minetest.record_protection_violation(pos, pname)
+			else
+				if itemstack:get_count() >= 2 then
+					itemstack:take_item(2)
+					minetest.set_node(pos, {name = "waffles:toaster_with_breadslice", param2 = node.param2})
+				return itemstack
 			end
-		else
-			return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
 		end
-	end,
-})
+	else
+		return minetest.do_item_eat(2, nil, itemstack, user, pointed_thing)
+	end
+end
 
-minetest.register_craftitem("waffles:toast", {
-	description = S("Toast"),
-	inventory_image = "toast.png",
-	on_use = minetest.item_eat(3),
-	groups = {flammable = 2},
-})
+if minetest.registered_items["farming:bread_slice"] then
+	minetest.override_item("farming:bread_slice", {on_use = breadslice_on_use })
+	minetest.register_alias("waffles:breadslice", "farming:bread_slice")
+else
+	minetest.register_craftitem("waffles:breadslice", {
+		description = S("Slice of Bread"),
+		inventory_image = "breadslice.png",
+		groups = {flammable = 2},
+		on_use = breadslice_on_use,
+	})
+end
+
+if minetest.registered_items["farming:toast"] then
+	minetest.register_alias("waffles:toast", "farming:toast")
+else
+	minetest.register_craftitem("waffles:toast", {
+		description = S("Toast"),
+		inventory_image = "toast.png",
+		on_use = minetest.item_eat(3),
+		groups = {flammable = 2},
+	})
+end
 
 minetest.register_node("waffles:toaster_with_breadslice", {
 	description = S("Toaster with Breadslice"),
