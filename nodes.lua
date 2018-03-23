@@ -1,13 +1,6 @@
 local S = waffles.intllib
 
 --Waffle Maker and Waffles--
-local function get_waffle(player)
-	local inv = player:get_inventory()
-	inv:add_item("main", "waffles:large_waffle")
-end
-local function replace_emptymaker(pos, node)
-	minetest.set_node(pos, {name = "waffles:wafflemaker_open_empty", param2 = node.param2})
-end
 
 minetest.register_node("waffles:wafflemaker", {
 	description = S("Waffle Maker"),
@@ -92,10 +85,6 @@ minetest.register_node("waffles:wafflemaker_open_full", {
 	end,
 })
 
-local function replace_donemodel(pos, node)
-	minetest.set_node(pos, {name = "waffles:wafflemaker_open_done", param2 = node.param2})
-end
-
 minetest.register_node("waffles:wafflemaker_closed_full", {
 	description = S("Closed Waffle Maker (full)"),
 	drawtype = "mesh",
@@ -142,8 +131,8 @@ minetest.register_node("waffles:wafflemaker_open_done", {
 		},
 	},
 	on_punch = function (pos, node, player, pointed_thing)
-		get_waffle(player)
-		replace_emptymaker(pos, node)
+		player:get_inventory():add_item("main", "waffles:large_waffle")
+		minetest.set_node(pos, {name = "waffles:wafflemaker_open_empty", param2 = node.param2})
 	end
 })
 
