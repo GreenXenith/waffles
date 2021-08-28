@@ -39,24 +39,28 @@ minetest.register_craft({
 })
 
 -- Batter
-for i = 1, 3 do
-    minetest.register_craftitem(MODNAME .. ":waffle_batter_" .. i, {
-        description = S("Waffle Batter"),
-        inventory_image = "waffles_waffle_batter_" .. i .. ".png",
-        stack_max = 1,
-        use_texture_alpha = true,
-        groups = {not_in_creative_inventory = i == 3 and 0 or 1},
-    })
+minetest.register_craftitem(MODNAME .. ":waffle_batter", {
+    description = S("Waffle Batter"),
+    inventory_image = "waffles_waffle_batter_inv.png",
+    use_texture_alpha = true,
+})
+
+local craftitems = waffles.setting_or("waffle_batter_recipe", "farming:flour farming:flour bucket:bucket_water=bucket:bucket_empty")
+local recipe = {}
+local replacements = {}
+
+for _, item in pairs(craftitems:split("[, ]", false, -1, true)) do
+    local set = item:split("=")
+    table.insert(recipe, set[1])
+
+    if set[2] then
+        table.insert(replacements, {set[1], set[2]})
+    end
 end
 
-local craftitems = {
-    ing1 = waffles.get_craftitem("batter_ingredient_1", "farming:flour"),
-    ing2 = waffles.get_craftitem("batter_ingredient_2", "farming:flour"),
-    water = waffles.get_craftitem("batter_ingredient_water", "bucket:bucket_water"),
-}
-
 minetest.register_craft({
-	output = MODNAME .. ":waffle_batter_3",
+	output = MODNAME .. ":waffle_batter 3",
     type = "shapeless",
-	recipe = {craftitems.ing1, craftitems.ing2, craftitems.water},
+	recipe = recipe,
+    replacements = #replacements > 0 and replacements or nil,
 })

@@ -35,24 +35,15 @@ H = heating (default:copper_ingot)
 
 `waffles:waffle_batter_3`:
 ```
-1 = ingredient 1 (farming:flour)
-2 = ingredient 2 (farming:flour)
-W = water (bucket:bucket_water)
-
 (Shapeless)
-+-+-+-+
-|1|2|W|
-+-+-+-+
+farming:flour, farming:flour, bucket:bucket_water
+
+This recipe is completely configurable.
 ```
 
 ### Configuration
-Configurable craftitems:
 
-* `waffles.craftitem_maker_casing` (Waffle maker casing craftitem)
-* `waffles.craftitem_maker_wiring` (Waffle maker wiring craftitem)
-* `waffles.craftitem_maker_heating` (Waffle maker heating craftitem)
-* `waffles.craftitem_batter_ingredient_1` (Waffle batter ingredient 1 craftitem)
-* `waffles.craftitem_batter_ingredient_2` (Waffle batter ingredient 2 craftitem)
-* `waffles.craftitem_batter_ingredient_water` (Waffle batter water craftitem)
-
-If you use your own water ingredient, you may prevent batter returning a bucket using `waffles.return_batter_bucket`.
+* `waffles.craftitem_maker_casing`: Waffle maker casing craftitem.
+* `waffles.craftitem_maker_wiring`: Waffle maker wiring craftitem.
+* `waffles.craftitem_maker_heating`: Waffle maker heating craftitem.
+* `waffles.waffle_batter_recipe`: Waffle batter recipe craftitems. See `settingtypes.txt`.

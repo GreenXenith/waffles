@@ -5,12 +5,12 @@ local function include(filename, ...) return assert(loadfile(MODPATH .. "/" .. f
 local waffles = {}
 
 -- Return default sounds if available
-function waffles.default_sounds(name)
+waffles.default_sounds = function(name)
     if default and default[name] then return default[name]() end
 end
 
-waffles.get_craftitem = function(name, default)
-    local set = minetest.settings:get(MODNAME .. ".craftitem_" .. name)
+waffles.setting_or = function(name, default)
+    local set = minetest.settings:get(MODNAME .. "." .. name)
     return set ~= "" and set or default
 end
 

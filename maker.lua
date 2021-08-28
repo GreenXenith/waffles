@@ -4,8 +4,6 @@ local COOK_TIME = 6
 local MODNAME = minetest.get_current_modname()
 local S = minetest.get_translator(MODNAME)
 
-local return_bucket = minetest.settings:get_bool(MODNAME .. ".return_batter_bucket", true)
-
 -- Batter visual
 local batters = {}
 minetest.register_entity(MODNAME .. ":batter", {
@@ -22,7 +20,7 @@ minetest.register_entity(MODNAME .. ":batter", {
         -- Interpolate between batter and waffle
         local cooked = minetest.get_meta(self._parent):get_float("cooked")
         self.object:set_properties({textures = {
-            "waffles_batter.png^(waffles_waffle.png^[opacity:" .. cooked * 255 .. ")"
+            "waffles_waffle_batter.png^(waffles_waffle.png^[opacity:" .. cooked * 255 .. ")"
         }})
 
         self.object:set_pos(vector.add(self._parent, {x = 0, y = 4 / 16, z = 0}))
@@ -61,14 +59,13 @@ local def_base = {
         local cooked = meta:get_float("cooked")
 
         local open = node.name:sub(-4) == "open"
-        local battering = stack:get_name():match(MODNAME .. ":waffle_batter_%d$")
+        local battering = stack:get_name():match(MODNAME .. ":waffle_batter$")
 
         -- Add batter if open and empty
         if open and battering and cooked < 0 then
             cooked = 0
             meta:set_float("cooked", cooked)
-            local level = tonumber(stack:get_name():match("%d$"))
-            stack = level == 1 and ItemStack(return_bucket and "bucket:bucket_empty" or nil) or MODNAME .. ":waffle_batter_" .. (level - 1)
+            stack:take_item()
         end
 
         -- Toggle as long as not placing batter on open maker
@@ -100,30 +97,8 @@ local def_base = {
         if cooked > -1 then
             local inv = puncher:get_inventory()
 
-            if cooked <= 0.2 then
-                local wielded = puncher:get_wielded_item()
-                local itemname = wielded:get_name()
-
-                local is_bucket = itemname == "bucket:bucket_empty"
-                local is_batter = itemname:match(MODNAME .. ":waffle_batter_%d$")
-                local level = is_batter and tonumber(itemname:match("%d$"))
-
-                if is_bucket or (level and level ~= 3) then
-                    local stack = ItemStack(MODNAME .. ":waffle_batter_" .. (level or 0) + 1)
-                    local old = ItemStack(wielded)
-
-                    wielded:take_item()
-                    puncher:set_wielded_item(wielded)
-
-                    if inv:room_for_item("main", stack) then
-                        inv:add_item("main", stack)
-                        cooked = -1
-                    else
-                        puncher:set_wielded_item(old)
-                    end
-                end
-            elseif cooked >= 0.8 then
-                local stack = ItemStack(MODNAME .. ":waffle")
+            if cooked <= 0.2 or cooked >= 0.8 then
+                local stack = ItemStack(MODNAME .. (cooked <= 0.2 and ":waffle_batter" or ":waffle"))
 
                 if inv:room_for_item("main", stack) then
                     inv:add_item("main", stack)
@@ -224,9 +199,9 @@ minetest.register_node(MODNAME .. ":waffle_maker_open", def_open)
 
 -- Crafting recipe
 local craftitems = {
-    casing = waffles.get_craftitem("maker_casing", "default:tin_ingot"),
-    wiring = waffles.get_craftitem("maker_wiring", "default:steel_ingot"),
-    heating = waffles.get_craftitem("maker_heating", "default:copper_ingot"),
+    casing = waffles.setting_or("crafitem_maker_casing", "default:tin_ingot"),
+    wiring = waffles.setting_or("crafitem_maker_wiring", "default:steel_ingot"),
+    heating = waffles.setting_or("crafitem_maker_heating", "default:copper_ingot"),
 }
 
 minetest.register_craft({
