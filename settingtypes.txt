@@ -1,0 +1,20 @@
+#    Crafitem used as waffle maker casing.
+waffles.craftitem_maker_casing (Waffle maker casing craftitem) string default:tin_ingot
+
+#    Crafitem used as waffle maker wiring.
+waffles.craftitem_maker_wiring (Waffle maker wiring craftitem) string default:steel_ingot
+
+#    Crafitem used as waffle maker heating.
+waffles.craftitem_maker_heating (Waffle maker heating craftitem) string default:copper_ingot
+
+#    Craftitem used as waffle ingredient 1.
+waffles.craftitem_batter_ingredient_1 (Waffle batter ingredient 1 craftitem) string farming:flour
+
+#    Craftitem used as waffle ingredient 2.
+waffles.craftitem_batter_ingredient_2 (Waffle batter ingredient 2 craftitem) string farming:flour
+
+#    Craftitem used as water waffle ingredient.
+waffles.craftitem_batter_ingredient_water (Waffle batter water craftitem) string bucket:bucket_water
+
+#    Whether or not to return an empty bucket after using up batter.
+waffles.return_batter_bucket (Return bucket from batter) bool true
