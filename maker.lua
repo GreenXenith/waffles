@@ -142,9 +142,6 @@ local def_base = {
                     minsize = 2,
                     maxsize = 6,
 
-                    collisiondetection = true,
-                    collision_removal = true,
-
                     texture = "waffles_steam.png",
                 })
 
