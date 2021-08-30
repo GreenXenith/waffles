@@ -41,6 +41,10 @@ farming:flour, farming:flour, bucket:bucket_water
 This recipe is completely configurable.
 ```
 
+`waffles:waffle_stack`: 8 `waffles:waffle` (Shapeless)
+
+`waffles:waffle_stack_short`: 4 `waffles:waffle` (Shapeless)
+
 ### Configuration
 
 * `waffles.craftitem_maker_casing`: Waffle maker casing craftitem.

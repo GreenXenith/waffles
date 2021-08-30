@@ -38,6 +38,54 @@ minetest.register_craft({
     recipe = {MODNAME .. ":waffle"},
 })
 
+-- Waffle stacks
+minetest.register_node(MODNAME .. ":waffle_stack", {
+    description = S("Stack of Waffles"),
+    tiles = {"waffles_waffle_block_top.png", "waffles_waffle_block_top.png", "waffles_waffle_block_side.png"},
+    paramtype2 = "facedir",
+    groups = {snappy = 3, oddly_breakable_by_hand = 1},
+    on_place = minetest.rotate_and_place,
+})
+
+minetest.register_node(MODNAME .. ":waffle_stack_short", {
+    description = S("Short Stack of Waffles"),
+    drawtype = "nodebox",
+    node_box = {
+        type = "fixed",
+        fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+    },
+    tiles = {"waffles_waffle_block_top.png", "waffles_waffle_block_top.png", "waffles_waffle_block_side.png"},
+    paramtype2 = "facedir",
+    paramtype =  "light",
+    groups = {snappy = 3, oddly_breakable_by_hand = 1},
+    on_place = minetest.rotate_and_place,
+})
+
+local craftitem = MODNAME .. ":waffle"
+minetest.register_craft({
+    output = MODNAME .. ":waffle_stack",
+    type = "shapeless",
+    recipe = {craftitem, craftitem, craftitem, craftitem, craftitem, craftitem, craftitem, craftitem},
+})
+
+minetest.register_craft({
+    output = MODNAME .. ":waffle_stack_short",
+    type = "shapeless",
+    recipe = {craftitem, craftitem, craftitem, craftitem},
+})
+
+minetest.register_craft({
+    output = MODNAME .. ":waffle 8",
+    type = "shapeless",
+    recipe = {MODNAME .. ":waffle_stack"}
+})
+
+minetest.register_craft({
+    output = MODNAME .. ":waffle 4",
+    type = "shapeless",
+    recipe = {MODNAME .. ":waffle_stack_short"}
+})
+
 -- Batter
 minetest.register_craftitem(MODNAME .. ":waffle_batter", {
     description = S("Waffle Batter"),
