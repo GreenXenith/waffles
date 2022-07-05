@@ -112,6 +112,28 @@ local def_base = {
 
         return minetest.node_punch(pos, node, puncher, ...)
     end,
+    on_dig = function(pos, node, puncher, ...)
+        local meta = minetest.get_meta(pos)
+        local cooked = meta:get_float("cooked")
+
+        if cooked > -1 then
+            local inv = puncher:get_inventory()
+
+            if cooked <= 0.2 or cooked >= 0.8 then
+                local stack = ItemStack(MODNAME .. (cooked <= 0.2 and ":waffle_batter" or ":waffle"))
+
+                if inv:room_for_item("main", stack) then
+                    inv:add_item("main", stack)
+                    cooked = -1
+                end
+            end
+
+            if cooked < 0 then remove_batter(pos) end
+            meta:set_float("cooked", cooked)
+        end
+
+        return minetest.node_punch(pos, node, puncher, ...)
+    end,
     on_timer = function(pos)
         if minetest.get_node(pos).name:sub(-4) == "open" then return end
 
