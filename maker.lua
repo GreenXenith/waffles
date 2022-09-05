@@ -46,6 +46,7 @@ local def_base = {
     description = S("Waffle Maker"),
     drawtype = "mesh",
     tiles = {"waffles_waffle_maker.png"},
+    use_texture_alpha = "clip",
     paramtype = "light",
     sunlight_propagates = true,
     paramtype2 = "facedir",
