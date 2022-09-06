@@ -113,6 +113,9 @@ local def_base = {
 
         return minetest.node_punch(pos, node, puncher, ...)
     end,
+    can_dig = function(pos)
+        return minetest.get_meta(pos):get_float("cooked") == -1
+    end,
     on_timer = function(pos)
         if minetest.get_node(pos).name:sub(-4) == "open" then return end
 
