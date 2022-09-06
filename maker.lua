@@ -113,9 +113,6 @@ local def_base = {
 
         return minetest.node_punch(pos, node, puncher, ...)
     end,
-    can_dig = function(pos)
-        return minetest.get_meta(pos):get_float("cooked") == -1
-    end,
     on_timer = function(pos)
         if minetest.get_node(pos).name:sub(-4) == "open" then return end
 
@@ -152,7 +149,11 @@ local def_base = {
                 minetest.registered_nodes[MODNAME .. ":waffle_maker"].on_rightclick(pos, minetest.get_node(pos), nil, ItemStack(""))
             end
         end
-    end
+    end,
+    can_dig = function(pos)
+        return minetest.get_meta(pos):get_float("cooked") == -1
+    end,
+    on_destruct = remove_batter,
 }
 
 minetest.register_lbm({
